@@ -11,3 +11,7 @@ services:
       - POSTGRES_PASSWORD=proj693B119
       - POSTGRES_DB=postgres
     ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
