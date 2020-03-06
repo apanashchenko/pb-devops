@@ -14,7 +14,7 @@ services:
       - "5432:5432"
     volumes:
       - ./db:/var/lib/postgresql/data
-      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./:/docker-entrypoint-initdb.d/initdb.sql
   discovery-service:
     image: pb-discovery-service:0.0.1-SNAPSHOT
     container_name: discovery-service
