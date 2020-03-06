@@ -81,8 +81,8 @@ services:
   oddsportal-soccer-service:
     image: pb-oddsportal-soccer-service:0.0.1-SNAPSHOT
     container_name: oddsportal-soccer-service
-    depends_on:
-      - postgres-project-b
+#    depends_on:
+#      - postgres-project-b
 #      - discovery-service
 #      - configuration-server
     environment:
