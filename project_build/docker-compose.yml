@@ -1,20 +1,18 @@
 version: '3.7'
 
 services:
-#  dockerize:
-#    image: jwilder/dockerize
-  postgres-project-b:
-    image: postgres:11.1
-    container_name: postgres-project-b
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=proj693B119
-      - POSTGRES_DB=postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./db:/var/lib/postgresql/data
-      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+  #  postgres-project-b:
+  #    image: postgres:11.1
+  #    container_name: postgres-project-b
+  #    environment:
+  #      - POSTGRES_USER=postgrespostgres-project-b
+  #      - POSTGRES_PASSWORD=proj693B119
+  #      - POSTGRES_DB=postgres
+  #    ports:
+  #      - "5432:5432"
+  #    volumes:
+  #      - ./db:/var/lib/postgresql/data
+  #      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
   discovery-service:
     image: pb-discovery-service:0.0.1-SNAPSHOT
     container_name: discovery-service
@@ -27,9 +25,8 @@ services:
   api-gateway:
     image: pb-api-gateway:0.0.1-SNAPSHOT
     container_name: api-gateway
-#    depends_on:
-#      - db
-#      - discovery-service
+    depends_on:
+      - discovery-service
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
@@ -39,26 +36,20 @@ services:
   configuration-server:
     image: pb-configuration-server:0.0.1-SNAPSHOT
     container_name: configuration-server
-#    depends_on:
-#      - db
-#      - discovery-service
+    depends_on:
+      - discovery-service
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-#    links:
-#      - api-gateway
     ports:
       - "8888:8888"
     expose:
       - "8888"
-#    volumes:
-#    - ./ssh/:/root/.ssh/
   game-info-service:
     image: pb-game-info-service:0.0.1-SNAPSHOT
     container_name: game-info-service
     depends_on:
-      - postgres-project-b
-#      - discovery-service
-#      - configuration-server
+      - discovery-service
+      - configuration-server
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
@@ -68,10 +59,9 @@ services:
   pinnacle-service:
     image: pinnacle-service:0.0.1-SNAPSHOT
     container_name: pinnacle-service
-#    depends_on:
-#      - postgres-project-b
-    #      - discovery-service
-    #      - configuration-server
+    depends_on:
+      - discovery-service
+      - configuration-server
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
@@ -81,10 +71,9 @@ services:
   oddsportal-soccer-service:
     image: pb-oddsportal-soccer-service:0.0.1-SNAPSHOT
     container_name: oddsportal-soccer-service
-#    depends_on:
-#      - postgres-project-b
-#      - discovery-service
-#      - configuration-server
+    depends_on:
+      - discovery-service
+      - configuration-server
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
@@ -95,9 +84,9 @@ services:
     image: pb-telegram-bot:0.0.1-SNAPSHOT
     container_name: project-b-telegram-bot
     depends_on:
-      - postgres-project-b
-#      - discovery-service
-#      - configuration-server
+      - pinnacle-service
+      - discovery-service
+      - configuration-server
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
