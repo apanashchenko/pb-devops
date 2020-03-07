@@ -5,7 +5,7 @@ services:
     image: postgres:11.1
     container_name: postgres-project-b
     environment:
-      - POSTGRES_USER=postgrespostgres-project-b
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=proj693B119
       - POSTGRES_DB=postgres
     ports:
