@@ -1,27 +1,27 @@
 version: '3.7'
 
 services:
-    postgres-project-b:
-      image: postgres:11.1
-      container_name: postgres-project-b
-      environment:
-        - POSTGRES_USER=postgrespostgres-project-b
-        - POSTGRES_PASSWORD=proj693B119
-        - POSTGRES_DB=postgres
-      ports:
-        - "5432:5432"
-      volumes:
-        - ./postgres-data:/var/lib/postgresql/data
-        - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
-  discovery-service:
-    image: pb-discovery-service:0.0.1-SNAPSHOT
-    container_name: discovery-service
+  postgres-project-b:
+    image: postgres:11.1
+    container_name: postgres-project-b
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
+      - POSTGRES_USER=postgrespostgres-project-b
+      - POSTGRES_PASSWORD=proj693B119
+      - POSTGRES_DB=postgres
     ports:
-      - "8761:8761"
-    expose:
-      - "8761"
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+  discovery-service:
+  image: pb-discovery-service:0.0.1-SNAPSHOT
+  container_name: discovery-service
+  environment:
+    - SPRING_PROFILES_ACTIVE=prod
+  ports:
+    - "8761:8761"
+  expose:
+    - "8761"
   api-gateway:
     image: pb-api-gateway:0.0.1-SNAPSHOT
     container_name: api-gateway
