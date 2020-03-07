@@ -14,14 +14,14 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
       - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
   discovery-service:
-  image: pb-discovery-service:0.0.1-SNAPSHOT
-  container_name: discovery-service
-  environment:
-    - SPRING_PROFILES_ACTIVE=prod
-  ports:
-    - "8761:8761"
-  expose:
-    - "8761"
+    image: pb-discovery-service:0.0.1-SNAPSHOT
+    container_name: discovery-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "8761:8761"
+    expose:
+      - "8761"
   api-gateway:
     image: pb-api-gateway:0.0.1-SNAPSHOT
     container_name: api-gateway
